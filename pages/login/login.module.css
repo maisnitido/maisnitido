@@ -1,0 +1,121 @@
+.container {
+    height: 100vh;
+    background-color: #E86A52;
+}
+
+.retangulo {
+
+    top: 15%;
+    left: 25%;
+    width: 50%;
+    height: 20%;
+    
+    background: #0A0445;
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
+    text-align: center;
+}
+
+.facaSeuLogin {
+    
+    vertical-align: -200%;
+    font-size: 1.5vw;
+    color: white;
+    font-weight: bold;
+}
+
+.retanguloInputs {
+    top: 30%;
+    left: 25%;
+    width: 50%;
+    height: 55%;
+
+    border-radius: 53px;
+
+    position: absolute;
+    background: #FFFFFF;    
+    opacity: 1;
+    
+}
+
+.inputEmail {
+
+    margin-top: 17%;
+    margin-left: 15%;
+    
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #707070;
+    width: 70%;
+
+    font-size: 1vw;
+}
+
+.inputPassword {
+    margin-top: 5%;
+    margin-left: 15%;
+
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #707070;
+    width: 70%;
+
+    font-size: 1vw;
+}
+
+.inputEmail::placeholder {
+
+    color: #707070;
+    padding: 10px;
+}
+
+.inputPassword::placeholder {
+
+    color: #707070;
+    padding: 10px;
+}
+
+.containerForgetPassword {
+
+    margin-top: 1%;
+    margin-left: 70%;
+}
+
+.forgetPassword {
+   
+    color: #707070;
+    font-size: 0.8vw;
+    font-weight: bold;
+}
+
+.containerLogInWith {
+
+    margin-top: 3%;
+    text-align: center;
+}
+
+.logInWith {
+
+    color: #707070;
+    font-size: 0.9vw;
+}
+
+.containerLogIn {
+
+    margin-left: 40%;
+    margin-top: 15%;    
+}
+
+.logIn {
+
+    width: 30%;
+    height: 50px;
+
+    color: white;
+    background-color: #BF4343;
+
+    font-weight: bold;    
+    border: 0;
+    border-radius: 60px;
+}
