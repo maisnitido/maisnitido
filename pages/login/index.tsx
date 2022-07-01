@@ -1,32 +1,18 @@
-import styles from './login.module.css';
-
-function Login() {
-
-    return(
-        <>
-        <div className={styles.container}>
-            <div className={styles.retangulo}>
-                <label className={styles.facaSeuLogin}>Faça seu login!</label>
-            </div>
-            <div className={styles.retanguloInputs}>
-                <form>                    
-                    <input type='email' placeholder='Usuário' className={styles.inputEmail} />
-                    <input type='password' placeholder='Senha' className={styles.inputPassword} />
-                </form>
-                <div className={styles.containerForgetPassword}>
-                    <label className={styles.forgetPassword}>Esqueci minha senha</label>
-                </div>
-                <div className={styles.containerLogInWith}>
-                    <label className={styles.logInWith}>ou logar com</label>
-                </div>
-                <div className={styles.containerLogIn}>
-                    <button className={styles.logIn}>ENTRAR</button>
-                </div>
-            </div>
-        </div>
-        </>
+import { useSession, signIn, signOut } from "next-auth/react";
+export default function Home() {
+  const { data: session } = useSession();
+  if (session) {
+    return (
+      <div>
+        Welcome user<br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </div>
     );
+  } 
+  return (
+    <div>
+      Click to sign into your user account <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </div>
+  );
 }
-
-
-export default Login;
