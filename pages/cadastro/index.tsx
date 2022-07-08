@@ -1,27 +1,26 @@
-import {FormControl, FormLabel, Input, Button} from '@mui/material'
-import { useState } from 'react';
+import Box from '@mui/material/Box'
 
 function Index() {
-    const [areas, setAreas] = useState([]);
-    const [area, setArea] = useState([]);
-    const add = () => {
-        setAreas([...areas, area]);
-        console.log(areas);
-    }
-
     return (
-        <div>
-            <FormControl>
-                <FormLabel>
-                    Adicione sua area de conhecimento
-                </FormLabel>
-                <Input placeholder='ex.: arquitetura de sistema' onKeyDown={() => setArea(event.target.value)}>
-                </Input>
-                <Button onClick={() => add()}>Adicionar</Button>
-                {areas.map(a => {return (<div>{a}</div>)})}
-            </FormControl>
-        </div>
-    )
+        <Box
+            height={'100vh'}
+            width={'100%'}
+            justifyContent={'center'}
+            flexDirection={'column'}
+            sx={{
+                backgroundColor: 'primary.main',
+                alignItems: 'center',
+            }}>
+                <Box
+                    height={300}
+                    width={300}
+                    sx={{
+                        backgroundColor: 'secundary.main'
+                    }}>
+
+                </Box>
+            </Box>
+    )    
 }
 
 export default Index;

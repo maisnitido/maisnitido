@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,6 +16,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useSession } from "next-auth/react";
 import Avatar from '@mui/material/Avatar';
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -30,12 +30,10 @@ interface Props {
 
 export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const {data: session} = useSession();
-  
-  const image = session?.user?.image ?? '';
-  const name = session?.user?.name ?? 'User';
-  
+  console.log(session)
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -48,7 +46,7 @@ export default function ResponsiveDrawer(props: Props) {
       marginTop: '12px',
       marginLeft: '12px',
     }}>
-      <Avatar alt={name} src={image} />
+      {session && <Avatar alt={session?.user?.name ?? ''} src={session?.user?.image ?? ''} />}      
       <Typography 
         color={'text.secondary'}
         sx={{
@@ -56,7 +54,7 @@ export default function ResponsiveDrawer(props: Props) {
           marginLeft: '12px',
           fontSize: '12px',
         }}
-        >Ola, {name}</Typography>
+        >Ola, {session?.user?.name ?? ''}</Typography>
     </Box>    
   );
 

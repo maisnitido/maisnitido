@@ -10,8 +10,8 @@ export default function Home() {
 
   const { data: session } = useSession();
 
-  if (session !== undefined) {
-    Router.push('/');
+  if (session !== undefined && session != null) {
+    Router.push('/cadastro');
   }
 
   return (
