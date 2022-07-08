@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import GoogleIcon from '@mui/icons-material/Google';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
-import logo from '../../public/logo.jpg';
-import Router from 'next/router';
+import logo from '../../public/logo_branco.png';
+import Router from 'next/router'
 
 export default function Home() {
 
@@ -13,8 +13,8 @@ export default function Home() {
   if (session !== undefined) {
     Router.push('/');
   }
-  
-  return (    
+
+  return (
     <Box
       height={'100vh'}
       justifyContent={'center'}
@@ -41,7 +41,7 @@ export default function Home() {
         <Box
           display={'flex'}
           justifyContent={'center'}
-        >
+        >          
           <Button 
             onClick={() => signIn('google')}
             sx={{
@@ -59,6 +59,8 @@ export default function Home() {
           marginTop: '40px'
         }}>
         <Image
+          width={300}
+          height={50}
           src={logo}
           alt={'Mais nitido'}></Image>
       </Box>

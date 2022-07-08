@@ -16,7 +16,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useSession } from "next-auth/react";
-
+import Avatar from '@mui/material/Avatar';
 
 const drawerWidth = 240;
 
@@ -32,15 +32,37 @@ export default function ResponsiveDrawer(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const {data: session} = useSession();
-
+  
+  const image = session?.user?.image ?? '';
+  const name = session?.user?.name ?? 'User';
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  console.log(session)
+
+  const drawerHeader = (
+    <Box       
+      sx={{
+      display: 'flex',
+      position: 'absolute',
+      marginTop: '12px',
+      marginLeft: '12px',
+    }}>
+      <Avatar alt={name} src={image} />
+      <Typography 
+        color={'text.secondary'}
+        sx={{
+          marginTop: '12px',
+          marginLeft: '12px',
+          fontSize: '12px',
+        }}
+        >Ola, {name}</Typography>
+    </Box>    
+  );
+
   const drawer = (    
     <div>      
-      <Toolbar />
-      {/* <Image src={session.user.image}></Image> */}
+      <Toolbar />            
       <Divider />
       <List>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -116,6 +138,7 @@ export default function ResponsiveDrawer(props: Props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
+          {drawerHeader}
           {drawer}
         </Drawer>
         <Drawer
@@ -125,7 +148,8 @@ export default function ResponsiveDrawer(props: Props) {
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
           open
-        >          
+        >
+          {drawerHeader}
           {drawer}
         </Drawer>
       </Box>
