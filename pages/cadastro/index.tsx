@@ -10,7 +10,7 @@ import NavigateNext from '@mui/icons-material/NavigateNext';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
-
+  
 function Index() {
 
     const areas = ['Agronomia',
@@ -236,13 +236,16 @@ function Index() {
                             endIcon={<NavigateNext />}                     
                             sx={{
                                 backgroundColor: 'secondary.main',
+                                '&:hover': {
+                                    backgroundColor: 'secondary.main'
+                                },
                                 color: 'white',
                                 borderRadius: '60px',
                                 borderColor: 'secondary.main',
                                 border: '1px solid',
                                 width: '150px',
                                 height: '50px',
-                                marginTop: '5px',
+                                marginTop: '-25px',
                             }}>PRÓXIMO</Button>
                 </Box>
             </Box>
