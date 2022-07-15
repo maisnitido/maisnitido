@@ -1,20 +1,55 @@
 import { useSession, signIn } from "next-auth/react";
+import { useState, useEffect } from "react"; 
 import Box from '@mui/material/Box';
 import GoogleIcon from '@mui/icons-material/Google';
 import Button from '@mui/material/Button';
 import Image from 'next/image';
 import logo from '../../public/logo_branco.png';
-import Router from 'next/router'
+import Router from 'next/router';
+import axios from 'axios';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
-export default function Home() {
+const Home = () => {
 
-  const { data: session } = useSession();
+  const [open, setOpen] = useState(false);
+  const [alert, setAlert] = useState('');
 
-  if (session !== undefined && session != null) {
-    Router.push('/cadastro');
-  }
+  const { data: session, status } = useSession();
+
+  useEffect(() => {    
+    if (status == 'authenticated') {      
+      axios
+      .get('http://localhost:3001/person/isvalid/' + session.user?.email)
+      .then(res => 
+        {
+          axios.get('http://localhost:3001/person/' + session.user?.email)
+          .then(() => Router.push('/'))
+          .catch(err => {
+            if (err.response.status == 404) {
+              Router.push('/cadastro');
+            }            
+          })
+        })
+      .catch(err => 
+        {
+          setOpen(true); 
+          setAlert(err.response.data);
+        })
+    }
+  }, [status]);
+  
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
+    <>
+    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {alert}
+        </Alert>
+    </Snackbar>
     <Box
       height={'100vh'}
       justifyContent={'center'}
@@ -65,5 +100,8 @@ export default function Home() {
           alt={'Mais nitido'}></Image>
       </Box>
     </Box>
+    </>
   )
 }
+
+export default Home;

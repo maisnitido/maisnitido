@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -7,11 +8,24 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import NavigateNext from '@mui/icons-material/NavigateNext';
+import axios from 'axios';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
   
 function Index() {
+
+    const [selected, setSelected] = useState<string[]>([]);
+
+    const handleClick = () => {
+        axios.post('http://localhost:3001/person', { selected })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
+
+    const handleChange = (value: string[]) => {        
+        setSelected(value);
+    }
 
     const areas = ['Agronomia',
                     'Biotecnologia',
@@ -200,6 +214,7 @@ function Index() {
                         borderBottomRightRadius: '53px',
                     }}>
                         <Autocomplete
+                            onChange={(_event, value) => handleChange(value)}
                             sx={{
                                 width: '500px',
                                 marginTop: '60px',
@@ -246,7 +261,8 @@ function Index() {
                                 width: '150px',
                                 height: '50px',
                                 marginTop: '-25px',
-                            }}>PRÓXIMO</Button>
+                            }}
+                            onClick={handleClick}>PRÓXIMO</Button>
                 </Box>
             </Box>
     )
