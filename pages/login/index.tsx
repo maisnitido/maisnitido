@@ -18,7 +18,7 @@ const Home = () => {
   const [alert, setAlert] = useState('');
 
   const { data: session, status } = useSession();
-
+  
   // useEffect(() => {    
   //   if (status == 'authenticated') {      
   //     axios
