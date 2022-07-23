@@ -6,9 +6,49 @@ import Image from "next/image";
 import React, { useState } from "react";
 import logo from "../public/logo_azul.png";
 import SearchIcon from "@mui/icons-material/Search";
+import Avatar from "@mui/material/Avatar";
+import { useSession, signIn } from "next-auth/react";
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 function Dash() {
-  
+
+  const { data: session, status } = useSession();
+
   const areas = ['Agronomia',
                     'Biotecnologia',
                     'Ecologia ',
@@ -139,6 +179,12 @@ function Dash() {
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+  
   return (
     <>
       <Box
@@ -159,7 +205,7 @@ function Dash() {
               id="asynchronous-demo"
               sx={{
                 width: 400,
-                marginLeft: '20px',           
+                marginLeft: '30px',           
               }}
               open={open}
               onOpen={() => {
@@ -173,9 +219,10 @@ function Dash() {
               options={areas}
               loading={loading}
               renderInput={(params) => (
-                <TextField
+                <TextField                  
                   {...params}
                   label="O que você procura?"
+                  size="small"
                   InputProps={{
                     ...params.InputProps,
                     endAdornment: (
@@ -188,7 +235,59 @@ function Dash() {
                 />
               )}
             />
-        </Box>      
+            <Box justifyContent={'flex-end'} display={'flex'} width={'40%'}>
+              <Avatar src={session?.user?.image || ''} />
+            </Box>
+        </Box>
+      
+        <Box 
+          display={'flex'}
+          sx={{ 
+            width: '100%',
+            marginTop: '50px',
+            marginLeft: '300px',
+          }}>
+          <Box 
+            sx={{ 
+              borderBottom: 1, 
+              borderColor: 'divider',              
+            }}>
+            <Tabs
+              value={value}
+              textColor={'secondary'}              
+              onChange={handleChange}
+              TabIndicatorProps={{ style: { background: '#0A0445'}}}
+              >
+              <Tab
+                label="PRÓXIMA MENTORIAS" 
+                {...a11yProps(0)} />  
+              <Tab 
+                label="MENTORIAS REALIZADAS" 
+                {...a11yProps(1)} />
+              <Tab 
+                label="PERFIS CURTIDOS" 
+                {...a11yProps(2)} />
+            </Tabs>
+          </Box>          
+        </Box>
+
+        <Box 
+          display={'flex'}
+          sx={{ 
+            width: '100%',
+            marginTop: '50px',
+            marginLeft: '300px',
+          }}>
+          <TabPanel value={value} index={0}>
+              Teste 1
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              Teste 2
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              Teste 3
+            </TabPanel>
+        </Box>
     </>
   )
 }
