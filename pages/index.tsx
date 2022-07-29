@@ -11,6 +11,9 @@ import { useSession, signIn } from "next-auth/react";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import style from '../styles/feed.module.css';
+import Card from './component/feed/card';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -27,11 +30,13 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
+      className={style.tab}
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+        <Box sx={{ p: 0 }}>
+          {/* <Typography>{children}</Typography> */}
+          {children}
         </Box>
       )}
     </div>
@@ -177,6 +182,17 @@ function Dash() {
                     'Teatro',
                     'Tradução e Interpretação'];
 
+  const nextMentorships = [
+    {
+      date: '2012',
+      name: 'Carlos Eduardo de Medeiros'
+    },
+    {
+      date: '2002',
+      name: 'Thiago Borchese'
+    }
+  ]
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [value, setValue] = React.useState(0);
@@ -278,14 +294,15 @@ function Dash() {
             marginTop: '50px',
             marginLeft: '300px',
           }}>
-          <TabPanel value={value} index={0}>
-              Teste 1
+            <TabPanel value={value} index={0}>              
+                <Card image={session?.user?.image || ''} name={session?.user?.name || ''} backgroundColor={'#426262'}/>
             </TabPanel>
             <TabPanel value={value} index={1}>
-              Teste 2
+              <Card image={session?.user?.image || ''} name={session?.user?.name || ''} backgroundColor={'#4E2379'}/>
+              <Card image={session?.user?.image || ''} name={session?.user?.name || ''} backgroundColor={'#DCD143'}/>
             </TabPanel>
             <TabPanel value={value} index={2}>
-              Teste 3
+              <Card image={session?.user?.image || ''} name={session?.user?.name || ''} backgroundColor={'#C67449'}/>
             </TabPanel>
         </Box>
     </>
