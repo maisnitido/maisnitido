@@ -1,6 +1,6 @@
-export function getYears(nextMentorships) {
+export function getYears(nextMentorships: any[]) {
 
-    const years = [];
+    const years: any[] = [];
 
     nextMentorships.map(p => {
         
